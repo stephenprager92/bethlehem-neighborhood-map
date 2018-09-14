@@ -1,0 +1,9 @@
+/* 
+  Map.css
+  Styles for the Map component for the Neighborhood Map App
+  Author: Steve Prager
+*/
+
+#map {
+  height: 100%;
+}
