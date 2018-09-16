@@ -9,24 +9,23 @@ import PropTypes from 'prop-types'
 import '../css/Map.css'
 
 /* 
-   Adding directive to ensure that 'google' variable is read correctly
+   Adding directive here to ensure that 'google' variable is read correctly
    (source: https://stackoverflow.com/questions/48493960/using-google-map-in-react-component)
 */
 /* global google */
-
 
 class Map extends Component {
 
 	/* Map required props */
 	static propTypes = {
-		// onUpdateShelf: PropTypes.func.isRequired,
-		// bookItem: PropTypes.object.isRequired
+		locations: PropTypes.array.isRequired
 	}
 
 	/* 
-	   RETRIEVE GOOGLE MAPS API - USED WHEN COMPONENT WILL AND DOES MOUNT
-	   NOTE: we need to do this using a promise since the retrieval is asynchronous. 
-	   Approach for this derived from https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
+	  RETRIEVE GOOGLE MAPS API WITHIN REACT - USED WHEN COMPONENT WILL AND DOES MOUNT
+
+	  NOTE: we need to do this using a promise since the retrieval is asynchronous. My 
+	  code / approach for this is taken from https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
 	*/
 	getMapsAPI() {
 		// If we haven't already defined the promise, define it
@@ -53,26 +52,28 @@ class Map extends Component {
 	    return this.googleMapsPromise;
   }
 
-  componentWillMount() {
-    // Start Google Maps API loading since we know we'll soon need it
-    this.getMapsAPI();
-  }
-
   componentDidMount() {
-    // Once the Google Maps API has finished loading, initialize the map
+
+    // Once the Google Maps API finishes loading, initialize the map at the Bethlehem city center
     this.getMapsAPI().then((google) => {
-      const hellertown = {lat: 40.5823215, lng: -75.3379568};
+      const bethlehemCenter = {lat: 40.6159, lng: -75.3705};
       const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 11,
-        center: hellertown
+        zoom: 15,
+        center: bethlehemCenter
       });
-      const marker = new google.maps.Marker({
-        position: hellertown,
-        map: map
-      });
+
+      // Add our neighborhood locations to the map as markers
+      for (let location of this.props.locations) {
+	      const marker = new google.maps.Marker({
+	          position: {lat: location.lat, lng: location.lng},
+	          title: location.title,
+	          map: map
+	      });
+      }   
     });
   }
 
+  /* Render the map (just a div) */
   render() {
     return (
         <div id="map"></div>
