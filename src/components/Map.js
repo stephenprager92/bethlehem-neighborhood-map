@@ -62,6 +62,9 @@ class Map extends Component {
         center: bethlehemCenter
       });
 
+      // Create an info window for our markers
+      const infoWindow = new google.maps.InfoWindow();
+
       // Add our neighborhood locations to the map as markers
       for (let location of this.props.locations) {
 	      const marker = new google.maps.Marker({
@@ -69,11 +72,33 @@ class Map extends Component {
 	          title: location.title,
 	          map: map
 	      });
-      }   
-    });
+
+          // Add event listeners to each marker to assign an info window if clicked
+	      marker.addListener('click', function() {
+	          // Check to make sure the infowindow is not already opened on this marker
+	          if (infoWindow.marker !== marker) {
+			      infoWindow.marker = marker;
+		          infoWindow.setContent('<div id="info-window">' + marker.title + '</div>');
+			      infoWindow.open(map, marker);
+			      // Make sure the marker property is cleared if the infowindow is closed.
+		          infoWindow.addListener('closeclick', function() {
+				      infoWindow.marker = null;
+	              });
+		      }
+		  });
+		  // Add two more event listeners to toggle the (bounce) animation
+		  // of the marker on mouseover
+          marker.addListener('mouseover', function() {
+            this.setAnimation(google.maps.Animation.BOUNCE);
+          });
+          marker.addListener('mouseout', function() {
+            this.setAnimation(null);
+          });
+	  }   
+	});
   }
 
-  /* Render the map (just a div) */
+  // Render the map (just a div)
   render() {
     return (
         <div id="map"></div>

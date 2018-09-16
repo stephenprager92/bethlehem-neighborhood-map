@@ -7,3 +7,8 @@
 #map {
   height: 100%;
 }
+
+#info-window {
+  font-style: italic;
+  display: block;
+}

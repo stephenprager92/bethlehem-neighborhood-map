@@ -16,6 +16,9 @@ class App extends Component {
      Here, that's the locations in our neighborhood (Bethlehem, PA)
   */
   state = {
+    /* NEXT STEP - 
+       PULL DATA FROM (FOURSQURE?) API AND PUT IN INFO WINDOWS
+       */
     locations: [ 
                  { 
                    title: "Sands Casino",
