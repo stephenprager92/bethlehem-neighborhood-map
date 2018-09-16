@@ -1,0 +1,21 @@
+/* 
+	Title.css
+	Styles for the title banner of the Neighborhood Map App
+	Author: Steve Prager
+*/
+
+#title {
+	width: 100%;
+	height: 10%;
+	line-height: 150%;
+	background-color: #00008b;
+	border: 3px solid black;
+	color: white;
+	font-family: Arial, sans-serif;
+	font-size: 36pt;
+	margin: auto;
+}
+
+#city-name {
+	font-style: italic;
+}

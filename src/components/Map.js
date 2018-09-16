@@ -56,7 +56,7 @@ class Map extends Component {
 
     // Once the Google Maps API finishes loading, initialize the map at the Bethlehem city center
     this.getMapsAPI().then((google) => {
-      const bethlehemCenter = {lat: 40.6159, lng: -75.3705};
+      const bethlehemCenter = {lat: 40.6139, lng: -75.3705};
       const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: bethlehemCenter

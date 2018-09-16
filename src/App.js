@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import './css/App.css';
 import Map from './components/Map'
+import Title from './components/Title'
 
 class App extends Component {
 
@@ -72,6 +73,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Title/>
         <Map locations={this.state.locations}/>
         {/* There should be a sidebar component here. A sidebar component should have an item component*/}
       </div>
