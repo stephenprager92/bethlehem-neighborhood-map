@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import './css/App.css';
 import Map from './components/Map'
 import Title from './components/Title'
+import ListView from './components/ListView'
 
 class App extends Component {
 
@@ -116,6 +117,7 @@ class App extends Component {
     return (
       <div className="App">
         <Title/>
+        <ListView locations={this.state.locations}/>
         <Map locations={this.state.locations}/>
         {/* There should be a sidebar component here. A sidebar component should have an item component*/}
       </div>
