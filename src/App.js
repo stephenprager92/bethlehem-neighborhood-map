@@ -9,18 +9,16 @@ import './css/App.css';
 import Map from './components/Map'
 import Title from './components/Title'
 import ListView from './components/ListView'
+import Footer from './components/Footer'
 
 class App extends Component {
 
   /* 
      State contains all of the app's data and passes it down to child components as needed
      Here, that's the locations in our neighborhood (Bethlehem, PA)
-     Foursquare API credentials for this app also saved here
+     Foursquare API credentials for the app also stored here
   */
   state = {
-    /* NEXT STEP - 
-       PULL DATA FROM (FOURSQURE?) API AND PUT IN INFO WINDOWS
-       */
     locations: [ 
                  { 
                    title: "Sands Casino",
@@ -116,10 +114,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Title/>
-        <ListView locations={this.state.locations}/>
-        <Map locations={this.state.locations}/>
-        {/* There should be a sidebar component here. A sidebar component should have an item component*/}
+        <div id="title-section" className="row section">
+          <Title/>
+        </div>
+        <div id="content-section">
+          <div id="list-view-section" className="column section">
+            <ListView locations={this.state.locations}/>
+          </div>
+          <div id="map-section" className="column section">
+            <Map locations={this.state.locations}/>
+          </div>
+        </div>
+        <div id="footer-section">
+          <Footer/>
+        </div>
       </div>
     );
   }

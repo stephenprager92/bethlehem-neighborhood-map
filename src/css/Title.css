@@ -6,13 +6,13 @@
 
 #title {
 	width: 100%;
-	height: 10%;
-	line-height: 150%;
+	height: 100%;
+	line-height: 160%;
 	background-color: #00008b;
-	border: 3px solid black;
 	color: white;
-	font-size: 36pt;
+	font-size: 32pt;
 	margin: auto;
+	order: 1;
 }
 
 #city-name {

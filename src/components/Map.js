@@ -58,7 +58,7 @@ class Map extends Component {
     this.getMapsAPI().then((google) => {
       const bethlehemCenter = {lat: 40.6139, lng: -75.3705};
       const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
+        zoom: 14.5,
         center: bethlehemCenter
       });
 
@@ -87,8 +87,8 @@ class Map extends Component {
 		      }
 		  });
 		  // Add two more event listeners to toggle the (bounce) animation
-		  // of the marker on mouseover
-          marker.addListener('mouseover', function() {
+		  // of the marker on click. Animation then removed on mouseout
+          marker.addListener('click', function() {
             this.setAnimation(google.maps.Animation.BOUNCE);
           });
           marker.addListener('mouseout', function() {

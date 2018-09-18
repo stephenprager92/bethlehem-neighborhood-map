@@ -9,6 +9,8 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import '../css/ListView.css'
 
+// NEXT STEPS!!!!!!!!!! - STYLE THIS AND ADD WAY TO SEND FILTERS UP TO PARENT (APP) COMPONENT
+
 class ListView extends Component {
 
 	/* ListView required props */
@@ -51,7 +53,7 @@ class ListView extends Component {
 				    />
 				   <ul id="locations-list">
 					   {this.state.filteredLocations.map((location) => 
-					   	   <li key={location.foursquareID}>
+					   	   <li className="list-location" key={location.foursquareID}>
 							   {location.title}
 						   </li>
 					   	)}
