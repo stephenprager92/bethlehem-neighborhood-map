@@ -98,6 +98,11 @@ class Map extends Component {
 	});
   }
 
+  // NEXT - WE NEED TO SET THE MARKER VISIBILITY TO NULL? - CHECK THE CLASS LESSON - AS COMPONENT UPDATES 
+  componentWillUpdate() {
+
+  }
+
   // Render the map (just a div)
   render() {
     return (

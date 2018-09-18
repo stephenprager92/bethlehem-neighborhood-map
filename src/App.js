@@ -5,6 +5,7 @@
 */
 
 import React, { Component } from 'react';
+import escapeRegExp from 'escape-string-regexp'
 import './css/App.css';
 import Map from './components/Map'
 import Title from './components/Title'
@@ -15,7 +16,8 @@ class App extends Component {
 
   /* 
      State contains all of the app's data and passes it down to child components as needed
-     Here, that's the locations in our neighborhood (Bethlehem, PA)
+     Here, that's ALL the locations in our neighborhood (Bethlehem, PA) as well as any locations
+     currently visible within the app (updated via filter functions).
      Foursquare API credentials for the app also stored here
   */
   state = {
@@ -91,6 +93,7 @@ class App extends Component {
                    foursquareInfo : {}
                  },
                ],
+    visibleLocations: [],
     foursquareCreds: {
       clientID: '0NQCIVNQJPAL3MOTXGV22C0IZF4JW1ORFWNHL1ABFFA4UOFN',
       clientSecret: '4Q5ATV5JFNDYUCCESGII1OJ2MHTQHMWIBVYXGTVNV3DYKLUG',
@@ -99,10 +102,34 @@ class App extends Component {
   }
 
   /* 
+     Filter locations that are currently visible based on a 'match' variable 
+     (this could be either a clicked button name or a searched query string).
+     Note this affects both the map (markers) and the list view components
+  */
+  updateVisibleLocations = (match) => {
+    let filteredLocations
+    const { locations } = this.state
+    if (match) {
+        const queryExp = new RegExp(escapeRegExp(match), 'i')
+        filteredLocations = locations.filter((location) => queryExp.test(location.title))
+    } 
+    else {
+      filteredLocations = locations
+    }
+    this.setState({visibleLocations: filteredLocations})
+  }
+
+  componentWillMount() {
+    // Before we mount app component for the first time, set visible locations to be all locations
+    this.setState({visibleLocations: this.state.locations})
+  }
+
+  /* 
     Asynchronously retrieve and add location data from the foursquare API 
     AFTER the app component initially mounts. Once retrieved, set the new state
   */
   componentDidMount() {
+    
     // let updatedLocations = this.state.locations
     // for (let location of updatedLocations) {
     //   fetch(`https://api.foursquare.com/v2/venues/${location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
@@ -119,10 +146,11 @@ class App extends Component {
         </div>
         <div id="content-section">
           <div id="list-view-section" className="column section">
-            <ListView locations={this.state.locations}/>
+            <ListView locations={this.state.visibleLocations}
+                      onFilter={this.updateVisibleLocations}/>
           </div>
           <div id="map-section" className="column section">
-            <Map locations={this.state.locations}/>
+            <Map locations={this.state.visibleLocations}/>
           </div>
         </div>
         <div id="footer-section">
