@@ -63,26 +63,47 @@
   #list-view-toggle {
     display: none;
   }
+  #close-view {
+    display: none;
+  }
 }
 
 /* Large phone */
 @media screen and (max-width: 650px) {
+  #title-section {
+    height: 20%;
+  }
   #list-view-section {
+    transition-property: width;
+    transition-duration: 500ms;
     width: 0%;
     border: none;
+    padding-top: 3px;
   }
   #map-section {
+    transition-property: width;
+    transition-duration: 500ms;
     width: 100%;
     height: 100%;
   }
   #list-view-toggle {
     display: block;
-    height: 5%;
+    height: 10%;
   }
-  #list-view-section .open {
-    width: 80%;
+  #list-view-toggle.hide {
+    display: none;
   }
-  #map-section .shift {
-    width: 20%;
+  #close-view {
+    display: inline-block;
+  }
+  #list-view-section.open {
+    transition-property: width;
+    transition-duration: 500ms;
+    width: 60%;
+  }
+  #map-section.shift {
+    transition-property: width;
+    transition-duration: 500ms;
+    width: 40%;
   }
 }

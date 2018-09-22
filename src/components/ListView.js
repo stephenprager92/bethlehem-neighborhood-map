@@ -13,7 +13,8 @@ class ListView extends Component {
 	/* ListView required props */
 	static propTypes = {
 		locations: PropTypes.array.isRequired,
-		onFilter: PropTypes.func.isRequired
+		onFilter: PropTypes.func.isRequired,
+		onClose: PropTypes.func.isRequired
 	}
 
 	state = {
@@ -29,12 +30,17 @@ class ListView extends Component {
 
 	render() {
 		return <div id="list-view">
+		           <button id="close-view"
+		                   onClick={this.props.onClose}>
+		                   Back to Map
+		           </button>
 		           <input type="text"
 		                  id="list-view-search"
 		                  placeholder="Search for locations"
 		                  value={this.state.searchQuery}
 						  onChange={(event) => this.updateSearch(event.target.value)}
-				    />
+				   />
+				   <hr id="list-break"/>
 				   <ul id="locations-list">
 					   {this.props.locations.map((location) => 
 					   	   <li className="list-location" 

@@ -18,7 +18,8 @@ class Map extends Component {
 
 	/* Map required props */
 	static propTypes = {
-		locations: PropTypes.array.isRequired
+		locations: PropTypes.array.isRequired,
+		toggleView: PropTypes.func.isRequired
 	}
 
     // State contains references to map and all  markers, we 
@@ -97,13 +98,14 @@ class Map extends Component {
 	       //              .then((result) => location.foursquareInfo = result.json())
 				    //     .catch((error) => console.error('Error: ', error))
 				    // }
+				    map.setCenter(marker.position)
 
 				    // Check to make sure the infowindow is not already opened on this marker
 	                if (infoWindow.marker !== marker) {
 			            infoWindow.marker = marker;
 		                infoWindow.setContent('<div id="info-window">' 
 		                	                   + this.location.title
-		                	                   + 'Rating: ' + this.location.foursquareInfo.response.venue.rating + 
+		                	                   + '<br/>Rating: ' + //this.location.foursquareInfo.response.venue.rating + 
 		                	                   '</div>');
 			            infoWindow.open(map, marker);
 			            // Make sure the marker property is cleared if the infowindow is closed.
@@ -112,13 +114,15 @@ class Map extends Component {
 	                    });
 		            }
 		        });
-		        // Add two more event listeners to toggle the (bounce) animation
-		        // of the marker on click. Animation then removed on mouseout
+		        /* 
+		           Add two more event listeners to toggle the (bounce) animation
+		           of the marker on click. Animation then removed after 750 ms (according to 
+		           https://stackoverflow.com/questions/7339200/bounce-a-pin-in-google-maps-once
+		           this is appropriate for two bounces of the marker
+		        */
                 marker.addListener('click', function() {
 	                this.setAnimation(google.maps.Animation.BOUNCE);
-                });
-                marker.addListener('mouseout', function() {
-	                this.setAnimation(null);
+	                setTimeout(function(){ marker.setAnimation(null); }, 750);
                 });
                 storedMarkers.push(marker)
             }
@@ -149,13 +153,23 @@ class Map extends Component {
 	  			}
 	  		}
 	  	}
+
+	  	// If there's only one marker, set it as the new center of the map for easy viewing
+	  	if (this.props.locations[0] && this.props.locations.length === 1) {
+	  		const newCenter = this.props.locations[0]
+	  		// Add .002 to provide a little extra space for info window
+	  		map.setCenter({lat: newCenter.lat + .002, lng: newCenter.lng})
+	  	}
 	}
 
-	// Render the map (just a div)
+	// Render the map and the list view toggle (only shows on mobile screen sizes)
 	render() {
 	    return (
 	    	<div id="map-container">
-		    	<nav id="list-view-toggle">Show List View</nav>
+		    	<nav id="list-view-toggle"
+		    	     onClick={this.props.toggleView}>
+			    	Click Here to Find a Location...
+			    </nav>
 		        <div id="map"></div>
 		    </div>
 	    )

@@ -31,3 +31,12 @@ a {
 		line-height: 150%;
 	}
 }
+
+/* Next size down (medium / small phone) */
+@media screen and (max-width: 650px) {
+	#footer {
+		font-size: 0.5em;
+		line-height: 150%;
+	}
+}
+

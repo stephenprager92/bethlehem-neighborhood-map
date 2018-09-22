@@ -19,13 +19,17 @@
 #list-view-toggle {
 	background-color: #d4eef6;
 	font-weight: bold;
-	line-height: 130%;
+	font-size: 14pt;
+	line-height: 220%;
 	border-bottom: 1px solid black;
 }
 
 @media screen and (max-width: 650px) {
 	#map-container {
-		height: 95%;
+		height: 90%;
+	}
+	#map-container.full {
+		height: 100%;
 	}
 }
 

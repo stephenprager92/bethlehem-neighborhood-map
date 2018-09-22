@@ -13,6 +13,7 @@
 
 #list-view-search {
   margin-top: 20px;
+  margin-bottom: 10px;
   font-size: 20pt;
   width: 80%;
   border: 1px solid black;
@@ -23,6 +24,7 @@
   padding: 0;
   text-align: left;
   font-size: 20pt;
+  margin-top: 10px;
 }
 
 .list-location {
@@ -37,11 +39,27 @@
   border-radius: 5px;
 }
 
+#list-break {
+  width: 80%;
+  border-color: #00008b;
+  text-align: center;
+}
+
+#close-view {
+  background-color: #0087BD;
+  font-size: 12pt;
+  color: white;
+  width: 60%;
+  border: 2px solid black;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
 /* Biggest size (large laptop/desktop) */
 @media screen and (min-width: 1300px) {
   .list-location {
     font-size: 1.3em;
-    margin: 30px;
+    margin-bottom: 30px;
   }
   #list-view-search {
     font-size: 1.9em;
@@ -68,3 +86,30 @@
   }
 }
 
+/* Next size down (Large phone) */
+@media screen and (max-width: 650px) {
+  #locations-list {
+    margin-top: 0;
+  }
+  #list-view-search {
+    margin: 10px;
+  }
+
+}
+
+/* Next size down (Small phone) */
+@media screen and (max-width: 350px) {
+  #locations-list {
+    margin-top: 0;
+    font-size: 1.4em;
+  }
+  #list-view-search {
+    margin: 10px;
+    font-size: 0.9em;
+  }
+  .list-location {
+    border: 1px solid black;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}

@@ -138,6 +138,21 @@ class App extends Component {
     // }
     // this.setState({ locations: updatedLocations })
   }
+  
+  // Shift the list view out or in. Used by the view toggle button on 
+  // mobile screens to adjust the display
+  shiftView = () => {
+    const listViewSection = document.getElementById('list-view-section')
+    const listViewToggle = document.getElementById('list-view-toggle')
+
+    const mapSection = document.getElementById('map-section')
+    const mapContainer = document.getElementById('map-container')
+
+    listViewToggle.classList.toggle('hide')
+    listViewSection.classList.toggle('open')
+    mapSection.classList.toggle('shift')
+    mapContainer.classList.toggle('full')
+  }
 
   render() {
     return (
@@ -148,10 +163,12 @@ class App extends Component {
         <div id="content-section">
           <div id="list-view-section" className="column section">
             <ListView locations={this.state.visibleLocations}
-                      onFilter={this.updateVisibleLocations}/>
+                      onFilter={this.updateVisibleLocations}
+                      onClose={this.shiftView}/>
           </div>
           <div id="map-section" className="column section">
-            <Map locations={this.state.visibleLocations}/>
+            <Map locations={this.state.visibleLocations}
+                 toggleView={this.shiftView}/>
           </div>
         </div>
         <div id="footer-section">
