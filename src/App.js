@@ -21,7 +21,7 @@ class App extends Component {
      Foursquare API credentials for the app also stored here
   */
   state = {
-    locations: [ 
+    allLocations: [ 
                  { 
                    title: "Sands Casino",
                    lat: 40.6150,
@@ -95,10 +95,10 @@ class App extends Component {
                ],
     visibleLocations: [],
     foursquareCreds: {
-      clientID: '0NQCIVNQJPAL3MOTXGV22C0IZF4JW1ORFWNHL1ABFFA4UOFN',
-      clientSecret: '4Q5ATV5JFNDYUCCESGII1OJ2MHTQHMWIBVYXGTVNV3DYKLUG',
-      requestDate: '20180323'
-    }          
+        clientID: '0NQCIVNQJPAL3MOTXGV22C0IZF4JW1ORFWNHL1ABFFA4UOFN',
+        clientSecret: '4Q5ATV5JFNDYUCCESGII1OJ2MHTQHMWIBVYXGTVNV3DYKLUG',
+        requestDate: '20180323'
+      }        
   }
 
   /* 
@@ -108,20 +108,20 @@ class App extends Component {
   */
   updateVisibleLocations = (match) => {
     let filteredLocations
-    const { locations } = this.state
+    const { allLocations } = this.state
     if (match) {
         const queryExp = new RegExp(escapeRegExp(match), 'i')
-        filteredLocations = locations.filter((location) => queryExp.test(location.title))
+        filteredLocations = allLocations.filter((location) => queryExp.test(location.title))
     } 
     else {
-      filteredLocations = locations
+      filteredLocations = allLocations
     }
     this.setState({visibleLocations: filteredLocations})
   }
 
   componentWillMount() {
     // Before we mount app component for the first time, set visible locations to be all locations
-    this.setState({visibleLocations: this.state.locations})
+    this.setState({visibleLocations: this.state.allLocations})
   }
 
   /* 
@@ -130,10 +130,11 @@ class App extends Component {
   */
   componentDidMount() {
     
-    // let updatedLocations = this.state.locations
+    // let updatedLocations = this.state.allLocations
     // for (let location of updatedLocations) {
     //   fetch(`https://api.foursquare.com/v2/venues/${location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
-    //   .then((result) => console.log(result.response.venue.location.formattedAddress))//location.foursquareInfo = response)
+    //     .then((result) => location.foursquareInfo = result.json())
+    //     .catch((error) => console.error('Error: ', error))
     // }
     // this.setState({ locations: updatedLocations })
   }

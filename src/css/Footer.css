@@ -10,8 +10,24 @@
 	background-color: #00008b;
 	color: white;
 	font-style: italic;
+	line-height: 150%;
 }
 
 a {
 	color: white;
+}
+
+/* Biggest size (large laptop/desktop) */
+@media screen and (min-width: 1300px) {
+	#footer {
+		font-size: 1.3em
+	}
+}
+
+/* Next size down (large phone) */
+@media screen and (max-width: 650px) {
+	#footer {
+		font-size: 0.6em;
+		line-height: 150%;
+	}
 }

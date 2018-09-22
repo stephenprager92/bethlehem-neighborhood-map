@@ -48,3 +48,41 @@
 #footer-section {
   height: 3%;
 }
+
+/* 
+   Major responsive design changes for mobile 
+   screens handled for the whole app here. Easier
+   since the flexbox layout shifts 
+*/
+
+/* 
+   On larger screens, the list view toggle buttono
+   is hidden (since the list view is visible)
+*/
+@media screen and (min-width: 651px) {
+  #list-view-toggle {
+    display: none;
+  }
+}
+
+/* Large phone */
+@media screen and (max-width: 650px) {
+  #list-view-section {
+    width: 0%;
+    border: none;
+  }
+  #map-section {
+    width: 100%;
+    height: 100%;
+  }
+  #list-view-toggle {
+    display: block;
+    height: 5%;
+  }
+  #list-view-section .open {
+    width: 80%;
+  }
+  #map-section .shift {
+    width: 20%;
+  }
+}

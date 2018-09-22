@@ -18,3 +18,32 @@
 #city-name {
 	font-style: italic;
 }
+
+/* Biggest size (large laptop/desktop) */
+@media screen and (min-width: 1300px) {
+	#title {
+		font-size: 3.3em
+	}
+}
+
+/* Next size down (regular laptop) */
+@media screen and (max-width: 1100px) {
+	#title {
+		font-size: 2.2em
+	}
+}
+
+/* Next size down (tablet) */
+@media screen and (max-width: 900px) {
+	#title {
+		font-size: 1.8em
+	}
+}
+
+/* Next size down (large phone) */
+@media screen and (max-width: 650px) {
+	#title {
+		font-size: 1.2em;
+		line-height: 220%;
+	}
+}

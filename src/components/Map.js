@@ -25,7 +25,12 @@ class Map extends Component {
     // will toggle visibility of these as needed
 	state = {
 		map: {},
-		markers: []
+		markers: [],
+		foursquareCreds: {
+	      clientID: '0NQCIVNQJPAL3MOTXGV22C0IZF4JW1ORFWNHL1ABFFA4UOFN',
+	      clientSecret: '4Q5ATV5JFNDYUCCESGII1OJ2MHTQHMWIBVYXGTVNV3DYKLUG',
+	      requestDate: '20180323'
+	    }        
 	}
 
 	/* 
@@ -64,7 +69,7 @@ class Map extends Component {
         this.getMapsAPI().then((google) => {
 		    const bethlehemCenter = {lat: 40.6139, lng: -75.3705};
 		    const map = new google.maps.Map(document.getElementById('map'), {
-		    	zoom: 14.5,
+		    	zoom: 14,
 		    	center: bethlehemCenter
 	        });
 
@@ -78,15 +83,28 @@ class Map extends Component {
 			    const marker = new google.maps.Marker({
 			        position: {lat: location.lat, lng: location.lng},
 		            title: location.title,
+		            location: location,
 	                map: map
 	            });
 
                 // Add event listeners to each marker to assign an info window if clicked
 	            marker.addListener('click', function() {
-	                // Check to make sure the infowindow is not already opened on this marker
+
+	                // MAYBE I NEED TO MAKE FOURSQUARE API CALL HERE - TRY THAT
+	                // STEP 1 - UPDATE THE SYNTAX BELOW
+	                // MAY ALSO HONESTLY NEED TO MOVE BACK - CHECK BOTH PLACES
+			     //    fetch(`https://api.foursquare.com/v2/venues/${marker.location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
+	       //              .then((result) => location.foursquareInfo = result.json())
+				    //     .catch((error) => console.error('Error: ', error))
+				    // }
+
+				    // Check to make sure the infowindow is not already opened on this marker
 	                if (infoWindow.marker !== marker) {
 			            infoWindow.marker = marker;
-		                infoWindow.setContent('<div id="info-window">' + marker.title + '</div>');
+		                infoWindow.setContent('<div id="info-window">' 
+		                	                   + this.location.title
+		                	                   + 'Rating: ' + this.location.foursquareInfo.response.venue.rating + 
+		                	                   '</div>');
 			            infoWindow.open(map, marker);
 			            // Make sure the marker property is cleared if the infowindow is closed.
 		                infoWindow.addListener('closeclick', function() {
@@ -136,7 +154,10 @@ class Map extends Component {
 	// Render the map (just a div)
 	render() {
 	    return (
-	        <div id="map"></div>
+	    	<div id="map-container">
+		    	<nav id="list-view-toggle">Show List View</nav>
+		        <div id="map"></div>
+		    </div>
 	    )
 	}
 }

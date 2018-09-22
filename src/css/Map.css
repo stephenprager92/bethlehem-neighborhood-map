@@ -4,10 +4,33 @@
   Author: Steve Prager
 */
 
+#map-container {
+	width: 100%;
+}
+
 #map {
   height: 100%;
 }
 
 #info-window {
   font-style: italic;
+}
+
+#list-view-toggle {
+	background-color: #d4eef6;
+	font-weight: bold;
+	line-height: 130%;
+	border-bottom: 1px solid black;
+}
+
+@media screen and (max-width: 650px) {
+	#map-container {
+		height: 95%;
+	}
+}
+
+@media screen and (min-width: 651px) {
+	#map-container {
+		height: 100%;
+	}
 }

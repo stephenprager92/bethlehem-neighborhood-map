@@ -37,7 +37,10 @@ class ListView extends Component {
 				    />
 				   <ul id="locations-list">
 					   {this.props.locations.map((location) => 
-					   	   <li className="list-location" key={location.foursquareID}>
+					   	   <li className="list-location" 
+					   	       key={location.foursquareID}
+					   	       title={location.title}
+					   	       onClick={(event) => this.updateSearch(event.target.title)}>
 							   {location.title}
 						   </li>
 					   	)}
