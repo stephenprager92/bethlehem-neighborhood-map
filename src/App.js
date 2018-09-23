@@ -18,7 +18,6 @@ class App extends Component {
      State contains all of the app's data and passes it down to child components as needed
      Here, that's ALL the locations in our neighborhood (Bethlehem, PA) as well as any locations
      currently visible within the app (updated via filter functions).
-     Foursquare API credentials for the app also stored here
   */
   state = {
     allLocations: [ 
@@ -26,7 +25,7 @@ class App extends Component {
                    title: "Sands Casino",
                    lat: 40.6150,
                    lng: -75.3581,
-                   foursquareID: "49eeaf08f964a52078681fe3",
+                   foursquareID: "4aeb461ff964a5206fc021e3",
                    foursquareInfo : {}
                  },
                  {
@@ -93,12 +92,7 @@ class App extends Component {
                    foursquareInfo : {}
                  },
                ],
-    visibleLocations: [],
-    foursquareCreds: {
-        clientID: '0NQCIVNQJPAL3MOTXGV22C0IZF4JW1ORFWNHL1ABFFA4UOFN',
-        clientSecret: '4Q5ATV5JFNDYUCCESGII1OJ2MHTQHMWIBVYXGTVNV3DYKLUG',
-        requestDate: '20180323'
-      }        
+    visibleLocations: []
   }
 
   /* 
@@ -122,21 +116,6 @@ class App extends Component {
   componentWillMount() {
     // Before we mount app component for the first time, set visible locations to be all locations
     this.setState({visibleLocations: this.state.allLocations})
-  }
-
-  /* 
-    Asynchronously retrieve and add location data from the foursquare API 
-    AFTER the app component initially mounts. Once retrieved, set the new state
-  */
-  componentDidMount() {
-    
-    // let updatedLocations = this.state.allLocations
-    // for (let location of updatedLocations) {
-    //   fetch(`https://api.foursquare.com/v2/venues/${location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
-    //     .then((result) => location.foursquareInfo = result.json())
-    //     .catch((error) => console.error('Error: ', error))
-    // }
-    // this.setState({ locations: updatedLocations })
   }
   
   // Shift the list view out or in. Used by the view toggle button on 

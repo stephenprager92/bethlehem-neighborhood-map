@@ -10,7 +10,7 @@
 	background-color: #00008b;
 	color: white;
 	font-style: italic;
-	line-height: 150%;
+	line-height: 100%;
 }
 
 a {
@@ -28,7 +28,6 @@ a {
 @media screen and (max-width: 650px) {
 	#footer {
 		font-size: 0.6em;
-		line-height: 150%;
 	}
 }
 
@@ -36,7 +35,6 @@ a {
 @media screen and (max-width: 650px) {
 	#footer {
 		font-size: 0.5em;
-		line-height: 150%;
 	}
 }
 

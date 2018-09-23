@@ -22,11 +22,12 @@ class Map extends Component {
 		toggleView: PropTypes.func.isRequired
 	}
 
-    // State contains references to map and all  markers, we 
-    // will toggle visibility of these as needed
+    // State contains references to map, all markers (we will toggle visibility of these as needed),
+    // foursquare API credentials and locations placeholder for update when foursquare info is pulled
 	state = {
 		map: {},
 		markers: [],
+		locations: [],
 		foursquareCreds: {
 	      clientID: '0NQCIVNQJPAL3MOTXGV22C0IZF4JW1ORFWNHL1ABFFA4UOFN',
 	      clientSecret: '4Q5ATV5JFNDYUCCESGII1OJ2MHTQHMWIBVYXGTVNV3DYKLUG',
@@ -64,11 +65,36 @@ class Map extends Component {
 	    return this.googleMapsPromise;
 	}
 
+	/* 
+	  Call the foursquare API to get location info and pass that into the locations objects
+	  Note that this needs to be done here (as part of the promise chain) because it 
+	  must occur before the infoWindow is created
+	*/
+	callFourSquareAPI() {
+
+	     let updatedLocations = this.props.locations
+
+	  //    for (let location of updatedLocations) {
+		 //     fetch(`https://api.foursquare.com/v2/venues/${location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
+		 //        .catch((error) => window.alert('Error: Unable to retrieve data from the Foursquare API. Please check the console for more details.'))
+		 //        .then((result) => result.json())
+		 //        .then((JSONresult) => location.foursquareInfo = JSONresult)
+		 // }
+	     this.setState({ locations: updatedLocations })
+
+	}
+
 	componentDidMount() {
 
 	    // Once the Google Maps API finishes loading, initialize the map at the Bethlehem city center
-        this.getMapsAPI().then((google) => {
+        this.getMapsAPI().then(this.callFourSquareAPI()).then((google) => {
 		    const bethlehemCenter = {lat: 40.6139, lng: -75.3705};
+
+            console.log(google)
+		    if (!google.maps) {
+		    	window.alert('Error: Google Maps API failed to load');
+		    }
+
 		    const map = new google.maps.Map(document.getElementById('map'), {
 		    	zoom: 14,
 		    	center: bethlehemCenter
@@ -80,10 +106,11 @@ class Map extends Component {
 	        // Add our neighborhood locations to the map as markers
 	        // Store our markers in the component's state as they are created
 	        let storedMarkers = []
-	        for (let location of this.props.locations) {
+	        for (let location of this.state.locations) {
 			    const marker = new google.maps.Marker({
 			        position: {lat: location.lat, lng: location.lng},
 		            title: location.title,
+		            tabIndex: '1',
 		            location: location,
 	                map: map
 	            });
@@ -91,23 +118,32 @@ class Map extends Component {
                 // Add event listeners to each marker to assign an info window if clicked
 	            marker.addListener('click', function() {
 
-	                // MAYBE I NEED TO MAKE FOURSQUARE API CALL HERE - TRY THAT
-	                // STEP 1 - UPDATE THE SYNTAX BELOW
-	                // MAY ALSO HONESTLY NEED TO MOVE BACK - CHECK BOTH PLACES
-			     //    fetch(`https://api.foursquare.com/v2/venues/${marker.location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
-	       //              .then((result) => location.foursquareInfo = result.json())
-				    //     .catch((error) => console.error('Error: ', error))
-				    // }
 				    map.setCenter(marker.position)
+
+				    // Need a size to make a foursquare API image call
+				    const size = '100x100'
 
 				    // Check to make sure the infowindow is not already opened on this marker
 	                if (infoWindow.marker !== marker) {
 			            infoWindow.marker = marker;
-		                infoWindow.setContent('<div id="info-window">' 
-		                	                   + this.location.title
-		                	                   + '<br/>Rating: ' + //this.location.foursquareInfo.response.venue.rating + 
-		                	                   '</div>');
+
+			            // If we found the foursquare info, throw it into the infowindow here. 
+			            // Otherwise, leave the window blank
+	                    if (this.location.foursquareInfo.response) {
+	                    	const { rating, likes, bestPhoto } = this.location.foursquareInfo.response.venue
+			                infoWindow.setContent('<div id="info-window">' 
+			                	                   + `<img src="${bestPhoto.prefix}${size}${bestPhoto.suffix}" alt="${this.location.title}">`
+			                	                   + '<br/>'
+			                	                   + this.location.title 
+			                	                   + '<br/>Likes: ' + likes.count
+			                	                   + '<br/>Rating: ' + rating 
+			                	                   + '</div>');
+			            }
+			            else {
+			            	infoWindow.setContent('<div id="info-window">Foursquare content not found</div>');
+			            }
 			            infoWindow.open(map, marker);
+
 			            // Make sure the marker property is cleared if the infowindow is closed.
 		                infoWindow.addListener('closeclick', function() {
 					        infoWindow.marker = null;
@@ -128,7 +164,7 @@ class Map extends Component {
             }
             // Set the map state variables of the component for future manipulation
             this.setState({map: map, markers: storedMarkers})
-        });
+        })
     }
 
     /* 
@@ -140,6 +176,9 @@ class Map extends Component {
     */
 	componentDidUpdate() {
 		const { map, markers } = this.state
+
+		// If we received new props due to the foursquare API call, update accordingly
+
 
 	    // First, hide all markers from the map
 	  	for (let marker of markers) {
