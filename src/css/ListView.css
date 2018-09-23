@@ -47,6 +47,7 @@
 
 #close-view {
   background-color: #0087BD;
+  cursor: pointer;
   font-size: 12pt;
   color: white;
   width: 60%;
