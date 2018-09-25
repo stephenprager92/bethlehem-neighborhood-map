@@ -19,39 +19,42 @@ The application is also responsive and restructures its layout for a better user
 In order to run the development version of this application, you'll first need to download the below files or clone this repository to get started. The app is built using the React library, so you'll also need to run `npm install` on your terminal while in the project directory to install all project dependencies. Finally, you'll need to run `npm start` in the project directory in order to start the server.
 
 This repository includes the following file structure:
-    |-- .gitignore',
-    |-- app-screenshot.PNG',
-    |-- CONTRIBUTING.md',    
-    |-- package-lock.json',
-    |-- package.json',
-    |-- README.md',
-    Blank HTML to anchor page, (development) service worker, page icon
-    |-- public',
-    |   |-- favicon.ico',
-    |   |-- index.html',
-    |   |-- manifest.json',
-    |   |-- service_worker.js',
-    |-- src',
-       Core application framework and testing
-       |-- App.js',
-       |-- App.test.js',
-       |-- index.js',
-       |-- logo.svg',
-       |-- registerServiceWorker.js',
-       React components used to render the UI of the application
-       |-- components',
-       |   |-- Footer.js',
-       |   |-- ListView.js',
-       |   |-- Map.js',
-       |   |-- Title.js',
-       CSS to style the app, including responsive media queries
-       |-- css',
-           |-- App.css',
-           |-- Footer.css',
-           |-- index.css',
-           |-- ListView.css',
-           |-- Map.css',
-           |-- Title.css'
+
+	|-- .gitignore,
+	|-- app-screenshot.PNG,
+	|-- CONTRIBUTING.md,    
+	|-- package-lock.json,
+	|-- package.json,
+	|-- README.md,
+	Blank HTML to anchor page, (development) service worker, page icon
+	|-- public,
+	|   |-- favicon.ico,
+	|   |-- index.html,
+	|   |-- manifest.json,
+	|   |-- service_worker.js,
+	|-- src,
+	   Core application framework and testing
+	   |-- App.js,
+	   |-- App.test.js,
+	   |-- index.js,
+	   |-- logo.svg,
+	   |-- registerServiceWorker.js'=,
+	   React components used to render the UI of the application
+	   |-- components,
+	   |   |-- Footer.js,
+	   |   |-- ListView.js,
+	   |   |-- Map.js,
+	   |   |-- Title.js,
+	   CSS to style the app, including responsive media queries
+	   |-- css,
+	       |-- App.css,
+	       |-- Footer.css,
+	       |-- index.css,
+	       |-- ListView.css,
+	       |-- Map.css,
+	       |-- Title.css
+
+Users should download the entire file directory, although content outside of sub-folders (for exampmle, this README) can be safely ignored if desired.
 
 ## Included APIs
 
@@ -63,7 +66,7 @@ Please note that currently my Google Maps API key, Foursquare client ID, and Fou
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-While I am the primary content creator of this project and was responsible for developing the contents of this repository beyond an initial [Create React App](https://github.com/facebookincubator/create-react-app) build, there are several locations within my JS where I credit code ideas or methodology to other sources (e.g. StackOverflow answers).
+While I am the primary content creator of this project and was responsible for developing the contents of this repository beyond an initial [Create React App](https://github.com/facebookincubator/create-react-app) build, there are several locations within my JS where I credit code ideas or methodology to other sources (e.g. StackOverflow).
 
 ## Contributing
 
