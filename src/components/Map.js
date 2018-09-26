@@ -200,7 +200,7 @@ class Map extends Component {
 	// Render the map and the list view toggle (only shows on mobile screen sizes)
 	render() {
 	    return (
-	    	<div id="map-container">
+	    	<div id="map-container" role="application">
 		    	<nav id="list-view-toggle"
 		    	     onClick={this.props.toggleView}>
 			    	Click Here to Find a Location...

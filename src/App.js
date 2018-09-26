@@ -140,12 +140,12 @@ class App extends Component {
           <Title/>
         </div>
         <div id="content-section">
-          <div id="list-view-section" className="column section">
+          <div id="list-view-section" aria-label="location search" className="column section">
             <ListView locations={this.state.visibleLocations}
                       onFilter={this.updateVisibleLocations}
                       onClose={this.shiftView}/>
           </div>
-          <div id="map-section" className="column section">
+          <div id="map-section" aria-label="location map" className="column section">
             <Map locations={this.state.visibleLocations}
                  toggleView={this.shiftView}/>
           </div>
