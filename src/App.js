@@ -20,78 +20,78 @@ class App extends Component {
      currently visible within the app (updated via filter functions).
   */
   state = {
-    allLocations: [ 
-                 { 
-                   title: "Sands Casino",
-                   lat: 40.6150,
-                   lng: -75.3581,
-                   foursquareID: "4aeb461ff964a5206fc021e3",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "Lehigh University",
-                   lat: 40.6069,
-                   lng: -75.3783,
-                   foursquareID: "4abe5688f964a520d38c20e3",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "Banana Factory",
-                   lat: 40.6124,
-                   lng: -75.3795,
-                   foursquareID: "4aea925ef964a520e6bb21e3",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "Bethlehem Brew Works",
-                   lat: 40.6220,
-                   lng: -75.3822,
-                   foursquareID: "4ac25dc5f964a520d89820e3",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "Bethlehem Skate Plaza",
-                   lat: 40.6124,
-                   lng: -75.3554,
-                   foursquareID: "4c40b95d3735be9a514e17a4",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "Moravian Book Shop",
-                   lat: 40.6195,
-                   lng: -75.3818,
-                   foursquareID: "4b11abfff964a520eb8123e3",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "SteelStacks",
-                   lat: 40.6153,
-                   lng: -75.3682,
-                   foursquareID: "542856ba498e85a2c0dbf449",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "Musikfest Cafe",
-                   lat: 40.6140,
-                   lng: -75.3676,
-                   foursquareID: "4cd1c7213e63721e469ba5cc",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "Billy's Downtown Diner",
-                   lat: 40.6221,
-                   lng: -75.3781,
-                   foursquareID: "53e4d8de498e6a14dbfed43b",
-                   foursquareInfo : {}
-                 },
-                 {
-                   title: "National Museum of Industrial History",
-                   lat: 40.6128,
-                   lng: -75.3706,
-                   foursquareID: "4e35c34e1850ad8463dc038c",
-                   foursquareInfo : {}
-                 },
-               ],
+    allLocations: [
+                   {
+                     title: "Banana Factory",
+                     lat: 40.6124,
+                     lng: -75.3795,
+                     foursquareID: "4aea925ef964a520e6bb21e3",
+                     foursquareInfo : {}
+                   },
+                   {
+                     title: "Bethlehem Brew Works",
+                     lat: 40.6220,
+                     lng: -75.3822,
+                     foursquareID: "4ac25dc5f964a520d89820e3",
+                     foursquareInfo : {}
+                   }, 
+                   {
+                     title: "Bethlehem Skate Plaza",
+                     lat: 40.6124,
+                     lng: -75.3554,
+                     foursquareID: "4c40b95d3735be9a514e17a4",
+                     foursquareInfo : {}
+                   },
+                   {
+                     title: "Billy's Downtown Diner",
+                     lat: 40.6221,
+                     lng: -75.3781,
+                     foursquareID: "53e4d8de498e6a14dbfed43b",
+                     foursquareInfo : {}
+                   },
+                   {
+                     title: "Lehigh University",
+                     lat: 40.6069,
+                     lng: -75.3783,
+                     foursquareID: "4abe5688f964a520d38c20e3",
+                     foursquareInfo : {}
+                   },
+                   {
+                     title: "Moravian Book Shop",
+                     lat: 40.6195,
+                     lng: -75.3818,
+                     foursquareID: "4b11abfff964a520eb8123e3",
+                     foursquareInfo : {}
+                   },
+                   {
+                     title: "Musikfest Cafe",
+                     lat: 40.6140,
+                     lng: -75.3676,
+                     foursquareID: "4cd1c7213e63721e469ba5cc",
+                     foursquareInfo : {}
+                   },
+                   {
+                     title: "National Museum of Industrial History",
+                     lat: 40.6128,
+                     lng: -75.3706,
+                     foursquareID: "4e35c34e1850ad8463dc038c",
+                     foursquareInfo : {}
+                   },
+                   { 
+                     title: "Sands Casino",
+                     lat: 40.6150,
+                     lng: -75.3581,
+                     foursquareID: "4aeb461ff964a5206fc021e3",
+                     foursquareInfo : {}
+                   },
+                   {
+                     title: "SteelStacks",
+                     lat: 40.6153,
+                     lng: -75.3682,
+                     foursquareID: "542856ba498e85a2c0dbf449",
+                     foursquareInfo : {}
+                   }
+                  ],
     visibleLocations: []
   }
 

@@ -61,8 +61,9 @@ class Map extends Component {
 		        document.body.appendChild(script);
 	        });
 	    }
-	    // Return a promise for the Google Maps API
-	    return this.googleMapsPromise;
+
+	    // Return a promise for the Google Maps API and alert user if the call fails
+	    return this.googleMapsPromise
 	}
 
 	/* 
@@ -71,29 +72,23 @@ class Map extends Component {
 	  must occur before the infoWindow is created
 	*/
 	callFourSquareAPI() {
+		let updatedLocations = this.props.locations
 
-	     let updatedLocations = this.props.locations
-
-	  //    for (let location of updatedLocations) {
-		 //     fetch(`https://api.foursquare.com/v2/venues/${location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
-		 //        .catch((error) => window.alert('Error: Unable to retrieve data from the Foursquare API. Please check the console for more details.'))
-		 //        .then((result) => result.json())
-		 //        .then((JSONresult) => location.foursquareInfo = JSONresult)
-		 // }
-	     this.setState({ locations: updatedLocations })
-
+		for (let location of updatedLocations) {
+		      fetch(`https://api.foursquare.com/v2/venues/${location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
+		      .catch((error) => window.alert('Error: Unable to retrieve data from the Foursquare API. Please check the console for more details.'))
+			  .then((result) => result.json())
+			  .then((JSONresult) => location.foursquareInfo = JSONresult)
+		}
+        this.setState({ locations: updatedLocations })
 	}
 
 	componentDidMount() {
 
-	    // Once the Google Maps API finishes loading, initialize the map at the Bethlehem city center
+	    // Once the Google Maps API finishes loading, call the Foursquare API. 
+	    // Once both APIs return results, initialize the map at the Bethlehem city center
         this.getMapsAPI().then(this.callFourSquareAPI()).then((google) => {
 		    const bethlehemCenter = {lat: 40.6139, lng: -75.3705};
-
-            console.log(google)
-		    if (!google.maps) {
-		    	window.alert('Error: Google Maps API failed to load');
-		    }
 
 		    const map = new google.maps.Map(document.getElementById('map'), {
 		    	zoom: 14,
@@ -118,7 +113,8 @@ class Map extends Component {
                 // Add event listeners to each marker to assign an info window if clicked
 	            marker.addListener('click', function() {
 
-				    map.setCenter(marker.position)
+                    // Add .004 to provide a little extra space for info window
+				    map.setCenter({lat: location.lat + .004, lng: location.lng})
 
 				    // Need a size to make a foursquare API image call
 				    const size = '100x100'
@@ -129,10 +125,10 @@ class Map extends Component {
 
 			            // If we found the foursquare info, throw it into the infowindow here. 
 			            // Otherwise, leave the window blank
-	                    if (this.location.foursquareInfo.response) {
+	                    if (this.location.foursquareInfo.response.venue) {
 	                    	const { rating, likes, bestPhoto } = this.location.foursquareInfo.response.venue
 			                infoWindow.setContent('<div id="info-window">' 
-			                	                   + `<img src="${bestPhoto.prefix}${size}${bestPhoto.suffix}" alt="${this.location.title}">`
+			                	                   + `<img id="info-window-img" src="${bestPhoto.prefix}${size}${bestPhoto.suffix}" alt="${this.location.title}">`
 			                	                   + '<br/>'
 			                	                   + this.location.title 
 			                	                   + '<br/>Likes: ' + likes.count
@@ -196,8 +192,8 @@ class Map extends Component {
 	  	// If there's only one marker, set it as the new center of the map for easy viewing
 	  	if (this.props.locations[0] && this.props.locations.length === 1) {
 	  		const newCenter = this.props.locations[0]
-	  		// Add .002 to provide a little extra space for info window
-	  		map.setCenter({lat: newCenter.lat + .002, lng: newCenter.lng})
+	  		
+	  		map.setCenter({lat: newCenter.lat + .004, lng: newCenter.lng})
 	  	}
 	}
 

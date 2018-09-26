@@ -4,6 +4,8 @@
 
 This project is a simple single-page application that displays a map and useful information about a list of interesting local landmarks in Bethlehem, PA (my hometown). Users can query for a particular location to narrow the selections, and click on a map marker to discover photos, ratings, and likes. The application uses the React library to display the page's UI and gathers map/location information by fetching data from the Google Maps and Foursquare Places APIs. 
 
+At this point in development, there is a static list of 10 popular Bethlehem locations included within the application. For now, I have hard-coded these locations into the App component to reduce API requests, but this may eventually change as I make further updates.
+
 The application is also responsive and restructures its layout for a better user experience on tablet / mobile screens.
 
 ## Table of Contents
@@ -16,42 +18,40 @@ The application is also responsive and restructures its layout for a better user
 
 ## Instructions
 
-In order to run the development version of this application, you'll first need to download the below files or clone this repository to get started. The app is built using the React library, so you'll also need to run `npm install` on your terminal while in the project directory to install all project dependencies. Finally, you'll need to run `npm start` in the project directory in order to start the server.
+In order to run the development version of this application, you'll first need to download the below files or clone this repository to get started. The app is built using the React library, so you'll also need to run `npm install` on your terminal while in the project directory to install all project dependencies. Finally, you'll need to run `npm start` in the project directory in order to start the development server.
 
-This repository includes the following file structure:
+Note I have not yet moved this app into production as I wish to make further edits to it beyond the scope of this course's requirements.
 
-	|-- .gitignore,
-	|-- app-screenshot.PNG,
-	|-- CONTRIBUTING.md,    
-	|-- package-lock.json,
-	|-- package.json,
-	|-- README.md,
-	Blank HTML to anchor page, (development) service worker, page icon
-	|-- public,
-	|   |-- favicon.ico,
-	|   |-- index.html,
-	|   |-- manifest.json,
-	|   |-- service_worker.js,
-	|-- src,
-	   Core application framework and testing
-	   |-- App.js,
-	   |-- App.test.js,
-	   |-- index.js,
-	   |-- logo.svg,
-	   |-- registerServiceWorker.js'=,
-	   React components used to render the UI of the application
-	   |-- components,
-	   |   |-- Footer.js,
-	   |   |-- ListView.js,
-	   |   |-- Map.js,
-	   |   |-- Title.js,
-	   CSS to style the app, including responsive media queries
-	   |-- css,
-	       |-- App.css,
-	       |-- Footer.css,
-	       |-- index.css,
-	       |-- ListView.css,
-	       |-- Map.css,
+The project repository includes the following file structure:
+
+	|-- .gitignore
+	|-- app-screenshot.PNG
+	|-- CONTRIBUTING.md  
+	|-- package-lock.json
+	|-- package.json
+	|-- README.md
+	|-- public (Blank HTML to anchor page, development service worker, page icon)
+	|   |-- favicon.ico
+	|   |-- index.html
+	|   |-- manifest.json
+	|   |-- service_worker.js
+	|-- src (Core application framework)
+	   |-- App.js
+	   |-- App.test.js
+	   |-- index.js
+	   |-- logo.svg
+	   |-- registerServiceWorker.js
+	   |-- components (React components used to render the UI of the application)
+	   |   |-- Footer.js
+	   |   |-- ListView.js
+	   |   |-- Map.js
+	   |   |-- Title.js
+	   |-- css (CSS to style the app, including responsive media queries)
+	       |-- App.css
+	       |-- Footer.css
+	       |-- index.css
+	       |-- ListView.css
+	       |-- Map.css
 	       |-- Title.css
 
 Users should download the entire file directory, although content outside of sub-folders (for exampmle, this README) can be safely ignored if desired.

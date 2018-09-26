@@ -13,7 +13,16 @@
 }
 
 #info-window {
+  color: black;
+  text-align: center;
   font-style: italic;
+  font-size: 12pt;
+  padding: 5px;
+}
+
+#info-window-img {
+	width: 150px;
+	height: 150px;
 }
 
 #list-view-toggle {
@@ -37,5 +46,15 @@
 @media screen and (min-width: 651px) {
 	#map-container {
 		height: 100%;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	#info-window {
+		font-size: 1.0em;
+	}
+	#info-window-img {
+		width: 75px;
+		height: 75px;
 	}
 }
