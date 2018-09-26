@@ -156,10 +156,10 @@ class Map extends Component {
 	                this.setAnimation(google.maps.Animation.BOUNCE);
 	                setTimeout(function(){ marker.setAnimation(null); }, 750);
                 });
-                storedMarkers.push(marker)
+                storedMarkers.push(marker);
             }
             // Set the map state variables of the component for future manipulation
-            this.setState({map: map, markers: storedMarkers})
+            this.setState({map: map, markers: storedMarkers});
         })
     }
 
@@ -171,29 +171,34 @@ class Map extends Component {
        app satisfies that but keep in mind going forward
     */
 	componentDidUpdate() {
-		const { map, markers } = this.state
-
-		// If we received new props due to the foursquare API call, update accordingly
-
+		const { map, markers } = this.state;
 
 	    // First, hide all markers from the map
 	  	for (let marker of markers) {
-		    marker.setMap(null)
+		    marker.setMap(null);
 	  	}
 	    // Then, show the ones that are in the currently visible locations
 	  	for (let location of this.props.locations) {
 	  		for (let marker of markers) {
 	  			if (marker.title === location.title) {
-		  			marker.setMap(map)	
+		  			marker.setMap(map);	
 	  			}
 	  		}
 	  	}
 
 	  	// If there's only one marker, set it as the new center of the map for easy viewing
 	  	if (this.props.locations[0] && this.props.locations.length === 1) {
-	  		const newCenter = this.props.locations[0]
+	  		const newCenter = this.props.locations[0];
 	  		
-	  		map.setCenter({lat: newCenter.lat + .004, lng: newCenter.lng})
+            // Add .004 to provide a little extra space for info window
+	  		map.setCenter({lat: newCenter.lat + .004, lng: newCenter.lng});
+
+            // Trigger the lone remaining marker animation with the click event listener
+	  		for (let marker of markers) {
+	  			if (marker.title === newCenter.title) {
+		  			google.maps.event.trigger(marker, 'click');	
+	  			}
+	  		}
 	  	}
 	}
 
