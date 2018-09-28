@@ -18,9 +18,11 @@ The application is also responsive and restructures its layout for a better user
 
 ## Instructions
 
-In order to run the development version of this application, you'll first need to download the below files or clone this repository to get started. The app is built using the React library, so you'll also need to run `npm install` on your terminal while in the project directory to install all project dependencies. Finally, you'll need to run `npm start` in the project directory in order to start the development server.
+In order to run the production version of this application, you'll first need to download the below files or clone this repository to get started. The app is built using the React library, so you'll also need to run `npm install` on your terminal while in the project directory to install all project dependencies. 
 
-Note I have not yet moved this app into production as I wish to make further edits to it beyond the scope of this course's requirements.
+After these steps are complete, you'll need to prepare the app's production build by running the `npm run build` command. The included service worker (which allows for caching and "offline-first" mode) will not function in the development build.
+
+Finally, you'll need to run `serve -s build` in the project directory in order to start the production server. Once the server is up, visit localhost:5000 in your browser to begin using the app!
 
 The project repository includes the following file structure:
 
@@ -30,17 +32,16 @@ The project repository includes the following file structure:
 	|-- package-lock.json
 	|-- package.json
 	|-- README.md
-	|-- public (Blank HTML to anchor page, development service worker, page icon)
+	|-- public (Blank HTML to anchor page, page icon)
 	|   |-- favicon.ico
 	|   |-- index.html
 	|   |-- manifest.json
-	|   |-- service_worker.js
 	|-- src (Core application framework)
 	   |-- App.js
 	   |-- App.test.js
 	   |-- index.js
 	   |-- logo.svg
-	   |-- registerServiceWorker.js
+	   |-- registerServiceWorker.js (builds the production service worker, provided by create-react-app)
 	   |-- components (React components used to render the UI of the application)
 	   |   |-- Footer.js
 	   |   |-- ListView.js
@@ -60,7 +61,7 @@ Users should download the entire file directory, although content outside of sub
 
 The application fetches data from the Google Maps API in order to display a map and markers and from the Foursquare Places API in order to display location-specific data, which means internet access is required for all functionality to work correctly (at least initially, until the page's service worker can cache returned results). Access to these APIs is required for the project to run correctly, but no additional installation or changes need to be made to the code in order to begin using them.
 
-Please note that currently my Google Maps API key, Foursquare client ID, and Foursquare client secret are all being used to power and validate the remote data calls within this project. While this is the intent of the project for development and evaluation by the Udacity reviewers, due to quota limits it is not necessarily optimized for production. Please either be responsible with use of my credentials or replace them with your own.
+Please note that currently my Google Maps API key, Foursquare client ID, and Foursquare client secret are all being used to power and validate the remote data calls within this project. Please either be responsible with use of my credentials or replace them with your own.
 
 ## Other Contributors
 
