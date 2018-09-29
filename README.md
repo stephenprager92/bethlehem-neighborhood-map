@@ -22,7 +22,7 @@ In order to run the production version of this application, you'll first need to
 
 After these steps are complete, you'll need to prepare the app's production build by running the `npm run build` command. The included service worker (which allows for caching and "offline-first" mode) will not function in the development build.
 
-Finally, you'll need to run `serve -s build` in the project directory in order to start the production server. Once the server is up, visit localhost:5000 in your browser to begin using the app!
+Finally, you'll need to run `serve -s build` in the project directory in order to start the production server. Once the server is up, visit localhost:5000 in a browser of your choice to begin using the app!
 
 The project repository includes the following file structure:
 

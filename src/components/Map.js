@@ -14,6 +14,8 @@ import '../css/Map.css'
 */
 /* global google */
 
+
+
 class Map extends Component {
 
 	/* Map required props */
@@ -29,8 +31,8 @@ class Map extends Component {
 		markers: [],
 		locations: [],
 		foursquareCreds: {
-	      clientID: '0NQCIVNQJPAL3MOTXGV22C0IZF4JW1ORFWNHL1ABFFA4UOFN',
-	      clientSecret: '4Q5ATV5JFNDYUCCESGII1OJ2MHTQHMWIBVYXGTVNV3DYKLUG',
+	      clientID: 'RL0B3GWV3SDDN4USUUYJAAO3ZIVAY2DDT0EPEIIJTHD4XKZT',
+	      clientSecret: 'W4NC3QNO35TKBSJUU13MOLG2LKT5LNAELASOORUS5IGZU0ZJ',
 	      requestDate: '20180323'
 	    }        
 	}
@@ -53,11 +55,23 @@ class Map extends Component {
 		            delete window.resolveGoogleMapsPromise;
 		        };
 
+		        // Add a standard error handler for when the API fails to load due to URL issues
+		        function googleMapsError() {
+	        		alert('Error: We ran into issues finding the Google Maps API. Please check the console for more details and make sure your URL is accurate!');
+		        }
+
+		        // Add the global gm_authFailure function (defined in the google maps spec) 
+		        // for when the Google Maps fails to load due to authentication issues
+				window.gm_authFailure = () => { 
+					alert('Error: We ran into authentication issues retrieving data from the Google Maps API. Please check the console for more details and make sure your API key is accurate!');
+				}
+
 		        // Load the Google Maps API
 		        const script = document.createElement("script");
 		        const APIKey = 'AIzaSyBGQCj_jyyUtHUTkIeU8qljLqcQAbTvtJk';
 		        script.src = `https://maps.googleapis.com/maps/api/js?key=${APIKey}&callback=resolveGoogleMapsPromise`;
-		        script.async = true;
+		        script.onerror = googleMapsError
+		        script.defer = true;
 		        document.body.appendChild(script);
 	        });
 	    }
@@ -76,9 +90,9 @@ class Map extends Component {
 
 		for (let location of updatedLocations) {
 		      fetch(`https://api.foursquare.com/v2/venues/${location.foursquareID}?client_id=${this.state.foursquareCreds.clientID}&client_secret=${this.state.foursquareCreds.clientSecret}&v=${this.state.foursquareCreds.requestDate}`)
-		      .catch((error) => window.alert('Error: Unable to retrieve data from the Foursquare API. Please check the console for more details.'))
 			  .then((result) => result.json())
 			  .then((JSONresult) => location.foursquareInfo = JSONresult)
+  		      .catch((error) => window.alert('Error: Unable to retrieve data from the Foursquare API. Please check the console for more details.'))
 		}
         this.setState({ locations: updatedLocations })
 	}
@@ -88,6 +102,7 @@ class Map extends Component {
 	    // Once the Google Maps API finishes loading, call the Foursquare API. 
 	    // Once both APIs return results, initialize the map at the Bethlehem city center
         this.getMapsAPI().then(this.callFourSquareAPI()).then((google) => {
+
 		    const bethlehemCenter = {lat: 40.6139, lng: -75.3705};
 
 		    const map = new google.maps.Map(document.getElementById('map'), {
